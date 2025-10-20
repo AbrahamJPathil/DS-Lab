@@ -72,8 +72,6 @@ int main(){
                 }
             }
         }
-
-        printf("\nppment Document Printing: %s",head ->documentName);
         
 
     }   
