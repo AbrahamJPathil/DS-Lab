@@ -72,13 +72,12 @@ void printInOrder(Node* head){
 }
 
 
-Node* freeAll(Node* head){
-    if(head == NULL) return NULL;
-    head = freeAll(head -> left);
-    head = freeAll(head -> right);
+void freeAll(Node* head){
+    if(head == NULL) return;
+    freeAll(head -> left);
+    freeAll(head -> right);
     free(head -> word);
     free(head);
-    return head;
 }
 
 void main(){
