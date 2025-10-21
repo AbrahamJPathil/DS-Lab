@@ -120,5 +120,9 @@ void main(){
     printf("Tree after deletion: ");
     printInOrder(root); // Expected: apple kiwi pear strawberry
     printf("\n\n");
+    // --- 3. Cleanup ---
+    freeAll(root);
+    printf("Tree has been freed.\n");
+
     
 }
