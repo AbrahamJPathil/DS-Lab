@@ -72,6 +72,52 @@ void printInOrder(Node* head){
 }
 
 
-void main(){
+Node* freeAll(Node* head){
+    if(head == NULL) return NULL;
+    head = freeAll(head -> left);
+    free(head);
+    head = freeAll(head -> right);
+}
 
+void main(){
+    Node* root = NULL;
+    
+    // --- 1. Insertion ---
+    root = insertNode(root, "mango");
+    root = insertNode(root, "apple");
+    root = insertNode(root, "strawberry");
+    root = insertNode(root, "pear");
+    root = insertNode(root, "banana");
+    root = insertNode(root, "grape");
+    root = insertNode(root, "kiwi");
+
+    printf("Original Tree (In-order): ");
+    printInOrder(root); // Expected: apple banana grape kiwi mango pear strawberry
+    printf("\n\n");
+
+    // --- 2. Deletion Test Cases ---
+
+    // Case 1: Delete a leaf node ("banana")
+    printf("Deleting 'banana' (a leaf node)...\n");
+    root = deleteNode(root, "banana");
+    printf("Tree after deletion: ");
+    printInOrder(root); // Expected: apple grape kiwi mango pear strawberry
+    printf("\n\n");
+
+    // Case 2: Delete a node with one child ("grape")
+    // 'grape' has one right child, 'kiwi'
+    printf("Deleting 'grape' (node with one child)...\n");
+    root = deleteNode(root, "grape");
+    printf("Tree after deletion: ");
+    printInOrder(root); // Expected: apple kiwi mango pear strawberry
+    printf("\n\n");
+
+    // Case 3: Delete a node with two children ("mango" - the root)
+    // The in-order successor of "mango" is "pear"
+    printf("Deleting 'mango' (node with two children)...\n");
+    root = deleteNode(root, "mango");
+    printf("Tree after deletion: ");
+    printInOrder(root); // Expected: apple kiwi pear strawberry
+    printf("\n\n");
+    
 }
