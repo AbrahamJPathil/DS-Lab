@@ -19,7 +19,7 @@ void countSort(int arr[], int size){
     int *sortedArray = calloc(size,sizeof(int));
     int reqIndex;
     for(int i = size - 1; i >= 0; i--){
-        reqIndex = --freqArray[arr[i]];
+        reqIndex = --freqArray[arr[i] - min]; //again offset by min to avoid overflow
         sortedArray[reqIndex] = arr[i];
     } // backtrack approach so as to maintain the stability of the array
 
