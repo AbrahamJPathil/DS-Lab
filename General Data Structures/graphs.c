@@ -131,14 +131,14 @@ void bfs(graph* gp,int startNode){
 	while(front != NULL && rear != NULL){
 		for(int i = 0; i < gp->n ; i++){
 			if(gp->adjMatrix[currNode][i] && visited[gp->adjMatrix[currNode][i]] != 1){
-				insertQueue(&front,&rear,gp->adjMatrix[currNode][i]);
+				insertQueue(&front,&rear,i);
 				visited[currNode] = 1;
-				printf("%d ",gp->adjMatrix[currNode][i]);
+				printf("%d ",i);
 			
 			}
 		}
 		deleteQueue(&front,&rear);
-		currNode = front -> data;
+		if(front != NULL) currNode = front -> data;
 	}
 	printf("BFS Traversal Completed");
 }
