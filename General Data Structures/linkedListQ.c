@@ -85,5 +85,56 @@ void deleteAll(Node** front,Node** rear){
 }
 
 
+int main() {
+    // 1. Initialize the queue
+    Node* front = NULL;
+    Node* rear = NULL;
 
+    printf("--- Test 1: Operations on Empty Queue ---\n");
+    displayAll(front, rear);
+    deleteQueue(&front, &rear);
+
+    printf("\n--- Test 2: Insert First Element ---\n");
+    insertQueue(&front, &rear, 10);
+    displayAll(front, rear);
+    printf("\nFront: %d, Rear: %d\n", front->data, rear->data);
+
+    printf("\n--- Test 3: Insert More Elements ---\n");
+    insertQueue(&front, &rear, 20);
+    insertQueue(&front, &rear, 30);
+    displayAll(front, rear);
+    printf("\nFront: %d, Rear: %d\n", front->data, rear->data);
+
+    printf("\n--- Test 4: Delete an Element ---\n");
+    deleteQueue(&front, &rear); // Deletes 10
+    displayAll(front, rear);
+    printf("\nFront: %d, Rear: %d\n", front->data, rear->data);
+
+    printf("\n--- Test 5: Delete to Empty ---\n");
+    deleteQueue(&front, &rear); // Deletes 20
+    deleteQueue(&front, &rear); // Deletes 30 (last element)
+    displayAll(front, rear);
+
+    printf("\n--- Test 6: Underflow After Emptying ---\n");
+    deleteQueue(&front, &rear); // Should fail gracefully
+
+    printf("\n--- Test 7: Re-inserting into Empty Queue ---\n");
+    insertQueue(&front, &rear, 100);
+    insertQueue(&front, &rear, 200);
+    displayAll(front, rear);
+    printf("\nFront: %d, Rear: %d\n", front->data, rear->data);
+
+    printf("\n--- Test 8: Deleting All Nodes ---\n");
+    deleteAll(&front, &rear);
+    displayAll(front, rear);
+
+    printf("\n--- Test 9: Inserting After deleteAll ---\n");
+    insertQueue(&front, &rear, 500);
+    displayAll(front, rear);
+    printf("\nFront: %d, Rear: %d\n", front->data, rear->data);
+
+    // Final cleanup
+    deleteAll(&front, &rear);
+    return 0;
+}
 		
