@@ -16,33 +16,33 @@ Node* createNode(int data){
 }
 
 
-void insertQueue(Node* front, Node* rear,int data){
-	if(front == rear && rear == NULL){
-		front = createNode(data);
-		rear = front;
+void insertQueue(Node** front, Node** rear,int data){
+	if(*front == *rear && *rear == NULL){
+		*front = createNode(data);
+		*rear = *front;
 		return;
 	}
 	else{
-		rear -> next = createNode(data);
-		rear = rear -> next;
+		(*rear) -> next = createNode(data);
+		*rear = (*rear) -> next;
 		return;
 	}
 }
 
-void deleteQueue(Node* front, Node* rear){
-	if(front == rear && rear == NULL){
+void deleteQueue(Node** front, Node** rear){
+	if(*front == *rear && *rear == NULL){
 		printf("No element exists to delete \n");
 		return;
 	}
-	else if(front == rear){		// only one element found case
-		free(front);
-		front = NULL;
-		rear = NULL;
+	else if(*front == *rear){		// only one element found case
+		free(*front);
+		*front = NULL;
+		*rear = NULL;
 		return;
 	}
 	else{
-		Node* temp = front;
-		front = front -> next;
+		Node* temp = *front;
+		*front = (*front) -> next;
 		free(temp);
 		return;
 	}
@@ -64,13 +64,13 @@ void displayAll(Node* front){
 	}
 }
 
-void deleteAll(Node* front){
-	if(front == rear && rear == NULL){
+void deleteAll(Node** front,Node** rear){
+	if(*front == *rear && *rear == NULL){
 		printf("No element exists to delete \n");
 		return;
 	}
 	else{
-		Node* temp = front;
+		Node* temp = *front;
 		Node* holder = temp;
 		while(temp -> next != NULL){
 			temp = temp -> next;
