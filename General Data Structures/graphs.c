@@ -116,14 +116,14 @@ graph* createGraph(){
 	
 	return newGraph;
 
-
+}
 void bfs(graph* gp,int startNode){
 	if(gp == NULL) return;
 	else if(gp -> adjMatrix == NULL) return;
 	Node* front = NULL;
 	Node* rear = NULL;
-	
-	int visited[gp->n] = {0}; //initialisation of an array
+	int size = gp -> n;
+	int* visited = calloc(size,sizeof(int)); //initialisation of an array
 	int currNode = startNode;
 	visited[currNode] = 1;
 	insertQueue(&front,&rear,currNode);
@@ -132,7 +132,6 @@ void bfs(graph* gp,int startNode){
 			if(gp->adjMatrix[currNode][i] && visited[i] != 1){
 				insertQueue(&front,&rear,i);
 				visited[i] = 1;
-				printf("%d ",i);
 			
 			}
 		}
@@ -143,6 +142,22 @@ void bfs(graph* gp,int startNode){
 	printf("BFS Traversal Completed");
 }
 
+int main() {
+    // 1. Create the graph
+    graph* myGraph = createGraph();
+    
+    // 2. Ask user for the starting node
+    int startNode;
+    printf("\nEnter the node to start BFS from (0 to %d): ", myGraph->n - 1);
+    scanf("%d", &startNode);
 
-void main(){
+    // 3. Validate input and run YOUR BFS function
+    if (startNode >= 0 && startNode < myGraph->n) {
+        printf("\n--- Running Your BFS Traversal ---\n");
+        bfs(myGraph, startNode);
+        printf("\n----------------------------------\n");
+    } else {
+        printf("Invalid start node. Must be between 0 and %d.\n", myGraph->n - 1);
+    }
+   return 0;
 }
