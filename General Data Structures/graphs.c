@@ -127,17 +127,17 @@ void bfs(graph* gp,int startNode){
 	int currNode = startNode;
 	visited[currNode] = 1;
 	insertQueue(&front,&rear,currNode);
-	printf("%d ",startNode);
 	while(front != NULL && rear != NULL){
 		for(int i = 0; i < gp->n ; i++){
-			if(gp->adjMatrix[currNode][i] && visited[gp->adjMatrix[currNode][i]] != 1){
+			if(gp->adjMatrix[currNode][i] && visited[i] != 1){
 				insertQueue(&front,&rear,i);
-				visited[currNode] = 1;
+				visited[i] = 1;
 				printf("%d ",i);
 			
 			}
 		}
 		deleteQueue(&front,&rear);
+		printf("%d ",currNode);
 		if(front != NULL) currNode = front -> data;
 	}
 	printf("BFS Traversal Completed");
