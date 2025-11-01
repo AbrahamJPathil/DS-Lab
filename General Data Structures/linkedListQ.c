@@ -4,7 +4,7 @@
 struct Node{
 	int data;
 	struct Node* next;
-}
+};
 
 typedef struct Node Node;
 
@@ -49,7 +49,7 @@ void deleteQueue(Node** front, Node** rear){
 }
 
 
-void displayAll(Node* front){
+void displayAll(Node* front,Node* rear){
 	if(front == rear && rear == NULL){
 		printf("No element exists to display \n");
 		return;
@@ -78,6 +78,8 @@ void deleteAll(Node** front,Node** rear){
 			holder = temp;
 		}
 		free(holder);
+		*front = NULL;
+		*rear = NULL;
 		printf("Success!");
 	}
 }
