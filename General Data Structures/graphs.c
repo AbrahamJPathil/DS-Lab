@@ -1,5 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
+// adding code for the stack
+struct stackNode{
+	int data;
+	struct stackNode* prev;
+};
+
+typedef struct stackNode stackNode;
+
+stackNode* createstackNode(int data){
+	stackNode* newstackNode = (stackNode*) malloc(sizeof(stackNode));
+	newstackNode -> prev = NULL;
+	newstackNode -> data = data;
+	return newstackNode;
+}
+
+void insertStack(stackNode** head, int data){
+		stackNode* newstackNode = createstackNode(data);
+		newstackNode -> prev = *head;
+		*head = newstackNode;
+}
+
+
+void deleteStack(stackNode** head){
+	if(*head == NULL) return;
+	else{
+		stackNode* temp = *head;
+		*head = (*head) -> prev;
+		free(temp);
+		return;
+	}
+}
+
+
 // adding code for queue
 struct Node{
 	int data;
@@ -136,11 +169,32 @@ void bfs(graph* gp,int startNode){
 			}
 		}
 		deleteQueue(&front,&rear);
-		printf("%d ",currNode);
+		printf("%d ",currNode); // we should print a node in BFS only after exploration completed
 		if(front != NULL) currNode = front -> data;
 	}
 	printf("BFS Traversal Completed");
 }
+
+void dfs(graph* gp,int startNode){
+	int* visited = (int *)calloc(gp -> n, sizeof(int));
+	stackNode* top = NULL;
+	insertStack(&top,startNode);
+	int currNode = startNode;
+	visited[startNode] = 1;
+	while(top != NULL){
+		for(int i = 0; i < gp -> n; i++){
+			if(gp -> adjMatrix[currNode][i] && visited[i] != 1)
+				insertStack(&top,i);
+		}
+		printf("%d ",currNode);
+		deleteStack(&head);
+		currNode = head -> data;
+	}
+	printf("succs");
+}	
+			
+	
+
 
 int main() {
     // 1. Create the graph
