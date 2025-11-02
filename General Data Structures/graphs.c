@@ -197,9 +197,25 @@ void dfs(graph* gp,int startNode){
 	printf("DFS traversal successful");
 	free(visited);
 }	
+
+
+int findNext(int distance[], int explored[], int n) {
+    int minIndex = -1;
+    int minDistance = 9999; // or use INT_MAX if you include <limits.h>
+
+    for (int i = 0; i < n; i++) {
+        // Only consider unexplored nodes
+        if (explored[i] == 0 && distance[i] < minDistance) {
+            minDistance = distance[i];
+            minIndex = i;
+        }
+    }
+
+    // If all nodes are explored or unreachable, return -1
+    return minIndex;
+}
 			
-	
-void djikstraOSPF(graph* gp){
+void djikstraOSPF(graph* gp,int target){
 	int* parent = (int*) calloc(gp->n,sizeof(int));
 	int* explored = (int*) calloc(gp->n,sizeof(int));
 	
@@ -210,7 +226,7 @@ void djikstraOSPF(graph* gp){
 	int currNode = 0;
 	distance[currNode] = 0;
 	parent[currNode] = -1;
-	for(int i = 0; i < gp -> n; i++){
+	for(int j = 0; j < gp -> n; j++){
 		for(int i = 0; i < gp -> n; i++){
 			if(gp -> adjMatrix[currNode][i] && explored[i] != 1){
 				if(distance[currNode] + gp -> adjMatrix[currNode][i] < distance[i]){
@@ -220,9 +236,19 @@ void djikstraOSPF(graph* gp){
 			}
 		}
 		explored[currNode] = 1;
-		currNode = findNext(&distance,&visited);
+		currNode = findNext(distance,explored,gp->n);
+		if(currNode == -1) break;
 	}
-			
+	printf("Shortest Path from Start to target (%d) is as below: ",target);
+	int temp = target;
+	while(parent[temp] >= 0){
+		printf("%d ",parent[temp]);
+		temp = parent[temp];
+	}
+	printf("Cost is: %d \n",distance[target]);
+	free(parent);
+	free(explored);
+}		
 
 int main() {
     // 1. Create the graph
@@ -230,13 +256,13 @@ int main() {
     
     // 2. Ask user for the starting node
     int startNode;
-    printf("\nEnter the node to start BFS from (0 to %d): ", myGraph->n - 1);
+    printf("\nEnter the targed node (0 to %d): ", myGraph->n - 1);
     scanf("%d", &startNode);
 
     // 3. Validate input and run YOUR BFS function
     if (startNode >= 0 && startNode < myGraph->n) {
-        printf("\n--- Running Your BFS Traversal ---\n");
-        dfs(myGraph, startNode);
+        printf("\n--- Running Your Djkstra ---\n");
+        djikstraOSPF(myGraph, startNode);
         printf("\n----------------------------------\n");
     } else {
         printf("Invalid start node. Must be between 0 and %d.\n", myGraph->n - 1);
