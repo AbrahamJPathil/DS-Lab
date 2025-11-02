@@ -179,18 +179,24 @@ void dfs(graph* gp,int startNode){
 	int* visited = (int *)calloc(gp -> n, sizeof(int));
 	stackNode* top = NULL;
 	insertStack(&top,startNode);
-	int currNode = startNode;
-	visited[startNode] = 1;
+	int currNode;
+	
 	while(top != NULL){
-		for(int i = 0; i < gp -> n; i++){
+		// start iteration with poping element off
+		currNode = top -> data;
+		deleteStack(&top);
+		if(visited[currNode] != 1){
+			printf("%d ",currNode);
+			visited[currNode] = 1;
+		}
+		for(int i = (gp -> n) - 1; i >= 0; i--){
 			if(gp -> adjMatrix[currNode][i] && visited[i] != 1)
 				insertStack(&top,i);
+		
 		}
-		printf("%d ",currNode);
-		deleteStack(&head);
-		currNode = head -> data;
 	}
-	printf("succs");
+	printf("DFS traversal successful");
+	free(visited);
 }	
 			
 	
