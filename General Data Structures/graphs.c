@@ -199,7 +199,26 @@ void dfs(graph* gp,int startNode){
 }	
 			
 	
-
+void djikstraOSPF(graph* gp){
+	int* parent = (int*) calloc(gp->n,sizeof(int));
+	int* explored = (int*) calloc(gp->n,sizeof(int));
+	int* distance = (int*) calloc(gp->n,sizeof(int));
+	int currNode = 0;
+	distance[currNode] = 0;
+	parent[currNode] = -1;
+	for(int i = 0; i < gp -> n; i++){
+		for(int i = 0; i < gp -> n; i++){
+			if(gp -> adjMatrix[currNode][i] && explored[i] != 1){
+				if(distance[currNode] + gp -> adjMatrix[currNode][i] < distance[i]){
+					distance[i] = distance[currNode] + gp -> adjMatrix[currNode][i];
+					parent[i] = currNode;
+				}
+			}
+		}
+		explored[currNode] = 1;
+		currNode = findMin(&distance,distance[currNode]);
+	}
+			
 
 int main() {
     // 1. Create the graph
