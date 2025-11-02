@@ -202,7 +202,11 @@ void dfs(graph* gp,int startNode){
 void djikstraOSPF(graph* gp){
 	int* parent = (int*) calloc(gp->n,sizeof(int));
 	int* explored = (int*) calloc(gp->n,sizeof(int));
-	int* distance = (int*) calloc(gp->n,sizeof(int));
+	
+	int distance[gp -> n];
+	for(int i = 0; i < gp -> n; i++)
+		distance[i] = 999;
+	
 	int currNode = 0;
 	distance[currNode] = 0;
 	parent[currNode] = -1;
@@ -216,7 +220,7 @@ void djikstraOSPF(graph* gp){
 			}
 		}
 		explored[currNode] = 1;
-		currNode = findMin(&distance,distance[currNode]);
+		currNode = findNext(&distance,&visited);
 	}
 			
 
