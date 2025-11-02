@@ -213,7 +213,7 @@ int main() {
     // 3. Validate input and run YOUR BFS function
     if (startNode >= 0 && startNode < myGraph->n) {
         printf("\n--- Running Your BFS Traversal ---\n");
-        bfs(myGraph, startNode);
+        dfs(myGraph, startNode);
         printf("\n----------------------------------\n");
     } else {
         printf("Invalid start node. Must be between 0 and %d.\n", myGraph->n - 1);
