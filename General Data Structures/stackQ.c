@@ -1,45 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct Node{
+struct stackNode{
 	int data;
-	struct Node* prev;
+	struct stackNode* prev;
 };
 
-typedef struct Node Node;
+typedef struct stackNode stackNode;
 
-Node* createNode(int data){
-	Node* newNode = (Node*) malloc(sizeof(Node));
-	newNode -> prev = NULL;
-	newNode -> data = data;
-	return newNode;
+stackNode* createstackNode(int data){
+	stackNode* newstackNode = (stackNode*) malloc(sizeof(stackNode));
+	newstackNode -> prev = NULL;
+	newstackNode -> data = data;
+	return newstackNode;
 }
 
-void insertStack(Node** head, int data){
-	if(*head == NULL) *head = createNode(data);
-	else{
-		Node* newNode = createNode(data);
-		newNode -> prev = *head;
-		*head = newNode;
-	}
+void insertStack(stackNode** head, int data){
+		stackNode* newstackNode = createstackNode(data);
+		newstackNode -> prev = *head;
+		*head = newstackNode;
 }
 
 
-void deleteStack(Node** head){
+void deleteStack(stackNode** head){
 	if(*head == NULL) return;
-	else if((*head) -> prev == NULL){
-		free(*head);
-		*head = NULL;
-		return;
-	}
 	else{
-		Node* temp = *head;
+		stackNode* temp = *head;
 		*head = (*head) -> prev;
 		free(temp);
 		return;
 	}
 }
 
-void displayAll(Node* head){
+void displayAll(stackNode* head){
 	printf("Displaying elements, if present, inside stack ... \n");
 	while(head != NULL){
 		printf("%d ",head -> data);
@@ -47,4 +39,4 @@ void displayAll(Node* head){
 	}
 }
 
-
+	
