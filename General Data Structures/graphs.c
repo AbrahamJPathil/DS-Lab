@@ -180,18 +180,17 @@ void dfs(graph* gp,int startNode){
 	stackNode* top = NULL;
 	insertStack(&top,startNode);
 	int currNode;
-	
+	visited[startNode] = 1;
 	while(top != NULL){
 		// start iteration with poping element off
 		currNode = top -> data;
 		deleteStack(&top);
-		if(visited[currNode] != 1){
-			printf("%d ",currNode);
-			visited[currNode] = 1;
-		}
+		printf("%d ",currNode);
 		for(int i = (gp -> n) - 1; i >= 0; i--){
-			if(gp -> adjMatrix[currNode][i] && visited[i] != 1)
+			if(gp -> adjMatrix[currNode][i] && visited[i] != 1){
 				insertStack(&top,i);
+				visited[i] = 1;
+			}
 		
 		}
 	}
