@@ -30,7 +30,6 @@ Node* insertEntry(Node* head,long n,char* name){
 
 Node* inOSuccessor(Node *head){
 	if(head == NULL) return NULL;
-	head = head -> right;
 	while(head -> left != NULL) head = head -> left;
 	return head;
 }
@@ -54,7 +53,7 @@ Node* deleteEntry(Node* head,char* name){
 				head -> right = deleteEntry(head -> right, (head -> right) -> name);
 			}
 			else{
-				Node* inSuc = inOSuccessor(head);
+				Node* inSuc = inOSuccessor(head -> right);
 				head -> number = inSuc -> number;
 				strcpy(head -> name,inSuc -> name);
 				head -> right = deleteEntry(head->right,inSuc -> name);
