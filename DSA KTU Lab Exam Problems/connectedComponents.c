@@ -173,7 +173,7 @@ int dfs(graph* gp,int startNode,int target,int* visited){
 
 
 
-void main(){
+int main(){
 	graph* gp = createGraph();
 	Node* dll = NULL;
 	for(int i = 0; i < gp -> n; i++) insertNode(&dll,i);
@@ -217,6 +217,14 @@ void main(){
 		}
 	}
 	printf("Total number of connected components: %d \n",connectedCnt);
+	for (int i = 0; i < gp->n; i++)    free(gp->adjMatrix[i]);
+	free(gp->adjMatrix);
+	free(gp);
+	free(visited);
+	free(arr1);
+	printf("All memory de-allocated and exiting...");
+	return 0;
+
 }
 		
 				
