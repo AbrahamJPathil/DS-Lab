@@ -35,7 +35,39 @@ Node* inOSuccessor(Node *head){
 	return head;
 }
 
-
+Node* deleteEntry(Node* head,char* name){
+	if(head == NULL) return NULL;
+	else{
+		if(strcmp(name,head -> name) == 0){
+			if(head -> left == NULL && head -> right == NULL){
+				free(head);
+				return NULL;	//else dangling pointer, that messed my initial commit
+			}
+			else if(head -> left != NULL && head -> right == NULL){
+				head -> number = (head -> left) -> number;
+				strcpy(head -> name, (head -> left) -> name);
+				head -> left = deleteEntry(head -> left, (head -> left) -> name);
+			}
+			else if(head -> left == NULL && head -> right != NULL){
+				head -> number = (head -> right) -> number;
+				strcpy(head -> name,(head -> right) -> name);
+				head -> right = deleteEntry(head -> right, (head -> right) -> name);
+			}
+			else{
+				Node* inSuc = inOSuccessor(head);
+				head -> number = inSuc -> number;
+				strcpy(head -> name,inSuc -> name);
+				head -> right = deleteEntry(head->right,inSuc -> name);
+			}
+		}	
+			
+				
+		else if(strcmp(name,head -> name) > 0) head -> right = deleteEntry(head -> right,name);
+		else	head -> left = deleteEntry(head -> left,name);
+	}
+	return head;
+}
+ 
 
 void inOrder(Node *head){
 	if(head == NULL) return;
@@ -67,8 +99,9 @@ void main(){
 	ptr = insertEntry(ptr,8921188429,"Anjali Raju");
 	ptr = insertEntry(ptr,8921177429,"Kiara Adwani");
 	ptr = insertEntry(ptr,8921199429,"Aashwin Raju");
-	
-	Node* test = inOSuccessor(ptr);
-	printf("%s ",test -> name);
+	ptr = deleteEntry(ptr,"Anjali Raju");
+	inOrder(ptr);
+	//Node* test = inOSuccessor(ptr);
+	//printf("%s ",test -> name);
 }
 	
