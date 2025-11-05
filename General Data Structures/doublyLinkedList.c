@@ -9,6 +9,7 @@ typedef struct Node{
 
 Node* createNode(int data){
 	Node* newNode = (Node *) malloc(sizeof(Node));
+	if(newNode == NULL) exit(1);
 	newNode -> prev = NULL;
 	newNode -> next = NULL;
 	newNode -> data = data;
@@ -70,9 +71,25 @@ void deleteNode(Node** head, int data){
 		}
 	}
 }			
-			
-			 
 
+void displayAll(Node* head){
+	if(head == NULL) printf("Empty DLL");
+	else{
+		printf("Elements are: ");
+		while(head != NULL){
+			printf("%d ",head -> data);
+			head = head -> next;
+		}
+	}
+}
+
+int main(){
+	Node* headptr = NULL;
+	for(int i = 0; i < 8; i++)
+		insertNode(&headptr,i);
+	deleteNode(&headptr,6);			 
+	displayAll(headptr);
+}
 
 			
 
