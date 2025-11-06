@@ -50,8 +50,8 @@ void heapifyDown(heapNode* newHeap,int index){
 	int largest = index;
 	int leftChild = 2 * index + 1;
 	int rightChild = 2 * index + 2;
-	if(leftChild < newHeap -> capacity && newHeap -> heapArr[leftChild].priority > newHeap -> heapArr[largest].priority) largest = leftChild;
-	else if(rightChild < newHeap -> capacity && newHeap -> heapArr[rightChild].priority > newHeap -> heapArr[largest].priority) largest = rightChild;
+	if(leftChild < newHeap -> size && newHeap -> heapArr[leftChild].priority > newHeap -> heapArr[largest].priority) largest = leftChild;
+	else if(rightChild < newHeap -> size && newHeap -> heapArr[rightChild].priority > newHeap -> heapArr[largest].priority) largest = rightChild;
 	
 	if(largest != index){
 		swap(&newHeap -> heapArr[largest],&newHeap -> heapArr[index]);
